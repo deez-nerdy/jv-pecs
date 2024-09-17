@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MachineServiceImpl<T extends Machine> implements MachineService<T> {
     @Override
-    public List<Machine> getAll(Class<? extends T> type) {
+    public List<T> getAll(Class<? extends T> type) {
         List<Machine> machines = new ArrayList<>();
 
         if (type == Bulldozer.class) {
@@ -25,7 +25,7 @@ public class MachineServiceImpl<T extends Machine> implements MachineService<T> 
             MachineProducer<Truck> truckProducer = new TruckProducer();
             machines.addAll(truckProducer.get());
         }
-        return machines;
+        return (List<T>) machines;
     }
 
     @Override
@@ -36,8 +36,8 @@ public class MachineServiceImpl<T extends Machine> implements MachineService<T> 
     }
 
     @Override
-    public void startWorking(List<? extends Machine> list) {
-        for (Machine machine : list) {
+    public void startWorking(List<? extends T> list) {
+        for (T machine : list) {
             machine.doWork();
         }
     }
